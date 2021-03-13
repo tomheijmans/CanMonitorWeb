@@ -1,28 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { ChildActivationStart } from '@angular/router';
+import { Component } from '@angular/core';
+import { CanSerialService } from './can-serial-service.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  private worker?: Worker;
 
+export class AppComponent {
   title = 'CanMonitorWeb';
 
+  constructor(private canSerialService: CanSerialService) {
+  }
+
   async onConnect() {
-    await (navigator as any).serial.requestPort();
-    if (this.worker === undefined) {
-      this.worker = new Worker('./app.worker', { type: 'module' });
-      this.worker.onmessage = ({ data }) => {
-        console.log(`page got message: ${data}`);
-      };
-    }
+    await this.canSerialService.start();
   }
 
   async onStop() {
-    this.worker?.terminate();
-    this.worker = undefined;
+    await this.canSerialService.stop();
   }
 }
