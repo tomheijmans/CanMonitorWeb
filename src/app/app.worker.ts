@@ -15,12 +15,16 @@ class CanBusSerialReader {
   }
 
   async doWork() {
-    postMessage("jsdlfksdjflsdf");
     let data;
     while (data = await this.streamReader.read()) {
       this.processNewData(data.value);
       postMessage(this.canData);
+      await this.delay(200);
     }
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   processNewData(data: any) {

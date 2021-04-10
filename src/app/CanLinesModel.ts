@@ -31,20 +31,20 @@ export class CanData {
     this.values = {};
   }
 
-  public get lastValue() {
-    if (this.values[0]) {
-      return this.values[0][this.values[0].length - 1];
-    } else {
-      return 0;
-    }
-  }
-
   addCanLine(canLine: CanLine) {
     let currentValue = this.values[canLine.id] ?? [];
-    if (currentValue.length > 100) {
+    if (currentValue.length > 100) { // Keep only the last 100 rows for now
       currentValue.shift();
     }
     currentValue.push(canLine);
     this.values[canLine.id] = currentValue;
+  }
+
+  getKeys() : string[] {
+    let keys : string[] = [];
+    for(let key in this.values){
+      keys.push(key);
+    }
+    return keys;
   }
 }
