@@ -9,20 +9,14 @@ import { CanData } from '../CanLinesModel';
   styleUrls: ['./canlines.component.sass']
 })
 export class CanlinesComponent implements OnInit {
-  // ?@Input() model : CanData;
-  // canLines: CanLinesModel= {
-  //   id: 1,
-  //   name : "sdf"
-  // }
-
+  
   constructor(private canSerialService : CanSerialService) { }
 
-  MyAwesomeProp : CanData = new CanData();
+  CanData : CanData = new CanData();
 
   ngOnInit(): void {
     this.canSerialService.OnNewModel.subscribe((value) => {
-      this.MyAwesomeProp = plainToClass(CanData, value);
+      this.CanData = plainToClass(CanData, value);
     });
   }
-
 }

@@ -1,1 +1,6 @@
-<p>canlines works! {{MyAwesomeProp.lastValue}}</p>
+<p>
+    The following keys are detected:
+</p>
+<ul>
+    <li *ngFor="let item of CanData.getKeys()">{{item}}</li>
+</ul>
