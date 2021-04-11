@@ -1,4 +1,4 @@
-<div>
+<div class="pane">
     <p>
         The following keys are detected:
     </p>
@@ -6,7 +6,7 @@
         <li *ngFor="let item of CanData.getKeys()">{{item}} <button (click)="CurrentKeyToMonitor = item">Monitor</button></li>
     </ul>
 </div>
-<div>
+<div class="pane">
     <p>Last data for key {{CurrentKeyToMonitor}}</p>
     <ul>
         <ul>

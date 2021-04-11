@@ -20,19 +20,19 @@ export class CanData {
     this.upsertCanDataGroup(currentValue);
   }
 
-  getKeys(): Array<string> {
-    let keys: string[] = [];
+  getKeys(): Array<number> {
+    let keys: number[] = [];
     for (let index in this.values) {
       keys.push(this.values[index].key);
     }
-    return keys;
+    return keys.sort((n1,n2) => n1 - n2);
   }
 
-  getCanLinesForKey(key: string): Array<CanLine> {
+  getCanLinesForKey(key: number): Array<CanLine> {
     return this.getCanDataGroupForKey(key)?.rows;
   }
 
-  private getCanDataGroupForKey(key: string): CanDataGroup {
+  private getCanDataGroupForKey(key: number): CanDataGroup {
     return this.values.filter(value => value.key === key)[0] ?? null;
   }
 

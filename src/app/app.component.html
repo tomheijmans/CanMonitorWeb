@@ -1,7 +1,9 @@
 <h1>{{title}}</h1>
 <div class="element">
-  <h2>Connect to a serial port</h2>
-  <button id="connect-to-serial" (click)="onConnect()">Connect</button>
-  <button id="connect-to-serial" (click)="onStop()">Stop</button>
+  <div class="pane">
+    <h2>Connect to a serial port</h2>
+    <button id="connect-to-serial" (click)="onConnect()">Connect</button>
+    <button id="connect-to-serial" (click)="onStop()">Stop</button>
+  </div>
   <app-canlines></app-canlines>
 </div>
