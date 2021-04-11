@@ -2,12 +2,12 @@ import { Type } from "class-transformer";
 import { CanLine } from "./canline.model";
 
 export class CanDataGroup {
-  key: string;
+  key: number;
 
   @Type(() => CanLine)
   rows: CanLine[];
 
-  constructor(key: string) {
+  constructor(key: number) {
     this.key = key;
     this.rows = [];
   }
