@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { plainToClass } from 'class-transformer';
+import { Component, OnInit } from '@angular/core';
 import { CanSerialService } from '../can-serial-service.service';
 import { CanData } from './shared/candata.model';
 import { CanLine } from './shared/canline.model';
@@ -18,7 +17,7 @@ export class CanlinesComponent implements OnInit {
 
   ngOnInit(): void {
     this.canSerialService.OnNewModel.subscribe((value) => {
-      this.CanData = plainToClass(CanData, value);
+      this.CanData = value;
     });
   }
 
