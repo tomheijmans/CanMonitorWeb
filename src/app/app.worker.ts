@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 
-import { CanData, CanLine } from "./CanLinesModel";
+import { CanData } from "./canlines/shared/candata.model";
+import { CanLine } from "./canlines/shared/canline.model";
 
 class CanBusSerialReader {
   streamReader: ReadableStreamDefaultReader;

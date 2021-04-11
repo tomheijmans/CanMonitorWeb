@@ -1,6 +1,8 @@
 import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { CanData } from './CanLinesModel';
+import 'reflect-metadata'
+import { plainToClass } from 'class-transformer';
+import { CanData } from './canlines/shared/candata.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,8 @@ export class CanSerialService {
     if (this.worker === undefined) {
       this.worker = new Worker('./app.worker', { type: 'module' });
       this.worker.onmessage = ({ data }) => {
-        this.OnNewModel.emit(data);
-        console.log(`page got message: ${data}`);
+        let mappedData = plainToClass(CanData, data);
+        this.OnNewModel.emit(mappedData);
       };
     }
   }
