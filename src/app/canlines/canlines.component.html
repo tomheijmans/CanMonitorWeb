@@ -1,6 +1,16 @@
-<p>
-    The following keys are detected:
-</p>
-<ul>
-    <li *ngFor="let item of CanData.getKeys()">{{item}}</li>
-</ul>
+<div>
+    <p>
+        The following keys are detected:
+    </p>
+    <ul>
+        <li *ngFor="let item of CanData.getKeys()">{{item}} <button (click)="CurrentKeyToMonitor = item">Monitor</button></li>
+    </ul>
+</div>
+<div>
+    <p>Last data for key {{CurrentKeyToMonitor}}</p>
+    <ul>
+        <ul>
+            <li *ngFor="let myItem of getDataToMonitor()">{{myItem.awesomeString()}}</li>
+        </ul>
+    </ul>
+</div>

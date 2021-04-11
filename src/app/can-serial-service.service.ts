@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { CanData } from './CanLinesModel';
+import { CanData } from './canlines/shared/candata.model';
 
 @Injectable({
   providedIn: 'root'
