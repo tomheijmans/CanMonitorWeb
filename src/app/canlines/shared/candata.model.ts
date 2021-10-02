@@ -32,6 +32,14 @@ export class CanData {
     return this.getCanDataGroupForKey(key)?.rows;
   }
 
+  getCurrentState(): Array<CanLine>{
+    let result: CanLine[] = [];
+    this.values.forEach(value => {
+      result.push(value.rows[value.rows.length -1]);
+    });
+    return result;
+  }
+
   private getCanDataGroupForKey(key: number): CanDataGroup {
     return this.values.filter(value => value.key === key)[0] ?? null;
   }

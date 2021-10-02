@@ -22,4 +22,27 @@ export class CanLine {
       return null;
     }
   }
+
+  public getValues(bits: number) : number[]{
+    let result : number[] = [];
+    let binaryString = this.asBinaryString();
+
+    for(let i = 0; i < binaryString.length - bits; i++){
+      let currentValue = binaryString.slice(i, i + bits);
+      result.push(parseInt(currentValue, 2));
+    }
+
+    return result;
+  }
+
+  private asBinaryString(): string{
+    let result : string = "";
+
+    this._values.forEach(value => {
+      var binaryWithoutLeadingZeros = value.toString(2);
+      result += ("00000000".substr(binaryWithoutLeadingZeros.length) + binaryWithoutLeadingZeros);
+    });
+
+    return result;
+  }
 }

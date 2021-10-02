@@ -1,0 +1,16 @@
+<div class="pane">
+    <p>Snelheid detector</p>
+    <p>Minspeed: <input type="text" value="{{MinSpeed}}" readonly />
+        <button (click)="setMinDataSet()">Hit it</button>
+    </p>
+    <p>Maxspeed: <input type="text" value="{{MaxSpeed}}" readonly />
+        <button (click)="setMaxDataSet()">Hit it</button>
+    </p>
+    <p>
+        <button (click)="tryFindValues()">Do magic</button>
+    </p>
+    Possible rows:
+    <ul>
+        <li *ngFor="let myItem of PossibleRows">{{myItem.toString()}}</li>
+    </ul>
+</div>

@@ -1,3 +1,4 @@
+<app-speeddetector></app-speeddetector>
 <div class="pane">
     <p>
         The following keys are detected:
@@ -9,8 +10,6 @@
 <div class="pane">
     <p>Last data for key {{CurrentKeyToMonitor}}</p>
     <ul>
-        <ul>
-            <li *ngFor="let myItem of getDataToMonitor()">{{myItem.toString()}}</li>
-        </ul>
+        <li *ngFor="let myItem of getDataToMonitor()">{{myItem.toString()}}</li>
     </ul>
 </div>
