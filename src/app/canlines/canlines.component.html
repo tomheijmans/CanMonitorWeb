@@ -10,6 +10,6 @@
 <div class="pane">
     <p>Last data for key {{CurrentKeyToMonitor}}</p>
     <ul>
-        <li *ngFor="let myItem of getDataToMonitor()">{{myItem.toString()}}</li>
+        <li *ngFor="let myItem of getDataToMonitor()">{{myItem.asBinaryString()}}</li>
     </ul>
 </div>

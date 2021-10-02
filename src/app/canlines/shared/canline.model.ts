@@ -35,7 +35,7 @@ export class CanLine {
     return result;
   }
 
-  private asBinaryString(): string{
+  public asBinaryString(): string{
     let result : string = "";
 
     this._values.forEach(value => {
