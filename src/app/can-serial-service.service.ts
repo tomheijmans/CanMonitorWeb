@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'reflect-metadata'
 import { plainToClass } from 'class-transformer';
-import { CanLine } from './canlines/shared/canline.model';
+import { CanLine } from './shared/canline.model';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 

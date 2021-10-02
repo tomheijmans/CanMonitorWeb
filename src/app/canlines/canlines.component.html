@@ -4,12 +4,7 @@
         The following keys are detected:
     </p>
     <ul>
-        <li *ngFor="let item of CanData.getKeys()">{{item}} <button (click)="CurrentKeyToMonitor = item">Monitor</button></li>
+        <li *ngFor="let item of Keys">{{item}} <button (click)="CurrentKeyToMonitor = item">Monitor</button></li>
     </ul>
 </div>
-<div class="pane">
-    <p>Last data for key {{CurrentKeyToMonitor}}</p>
-    <ul>
-        <li *ngFor="let myItem of getDataToMonitor()">{{myItem.toString()}}</li>
-    </ul>
-</div>
+<app-dataview [keyToMonitor]="CurrentKeyToMonitor"></app-dataview>

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CanSerialService } from '../can-serial-service.service';
-import { CanData } from '../canlines/shared/candata.model';
-import { CanLine } from '../canlines/shared/canline.model';
+import { CanData } from '../shared/candata.model';
+import { CanLine } from '../shared/canline.model';
 
 @Component({
   selector: 'app-speeddetector',
   templateUrl: './speeddetector.component.html',
-  styleUrls: ['./speeddetector.component.sass']
+  styleUrls: ['./speeddetector.component.scss']
 })
 export class SpeeddetectorComponent implements OnInit {
 
