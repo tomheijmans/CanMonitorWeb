@@ -9,7 +9,6 @@ import { CanLine } from '../canlines/shared/canline.model';
   styleUrls: ['./speeddetector.component.sass']
 })
 export class SpeeddetectorComponent implements OnInit {
- 
 
   private minDataSet: Array<CanLine> = [];
   private maxDataSet: Array<CanLine> = [];
@@ -22,10 +21,9 @@ export class SpeeddetectorComponent implements OnInit {
 
   CanData : CanData = new CanData();
 
-
   ngOnInit(): void {
-    this.canSerialService.OnNewModel.subscribe((value) => {
-      this.CanData = value;
+    this.canSerialService.getDataObservable().subscribe({
+      next: (value) => this.CanData.addCanLine(value)
     });
   }
 
@@ -38,7 +36,7 @@ export class SpeeddetectorComponent implements OnInit {
   }
 
   tryFindValues(): void {
-    const margin : number = 5;
+    const tollerance : number = 5;
     const bits : number = 8;
 
     this.PossibleRows = [];
@@ -51,7 +49,7 @@ export class SpeeddetectorComponent implements OnInit {
       let maxValues = maxRow.getValues(bits);
       minRow.getValues(bits).forEach((minVal, index) => {
         let dif = 100 / maxValues[index] * minVal;
-        if(dif >= expectedDif - margin && dif <= expectedDif + margin){
+        if(dif >= expectedDif - tollerance && dif <= expectedDif + tollerance){
           this.PossibleRows.push(minRow.id);
         }
       });      

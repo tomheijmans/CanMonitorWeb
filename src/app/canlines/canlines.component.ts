@@ -16,8 +16,8 @@ export class CanlinesComponent implements OnInit {
   CurrentKeyToMonitor : number = 0;
 
   ngOnInit(): void {
-    this.canSerialService.OnNewModel.subscribe((value) => {
-      this.CanData = value;
+    this.canSerialService.getDataObservable().subscribe({
+      next: (value) => this.CanData.addCanLine(value)
     });
   }
 
