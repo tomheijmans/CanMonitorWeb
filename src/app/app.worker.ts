@@ -1,25 +1,21 @@
 /// <reference lib="webworker" />
 
-import { CanData } from "./canlines/shared/candata.model";
-import { CanLine } from "./canlines/shared/canline.model";
+import { CanLine } from "./shared/canline.model";
 
 class CanBusSerialReader {
   streamReader: ReadableStreamDefaultReader;
   textDecoder: TextDecoder;
   remainder: string = "";
-  canData: CanData;
 
   constructor(streamReader: ReadableStreamDefaultReader) {
     this.streamReader = streamReader;
     this.textDecoder = new TextDecoder();
-    this.canData = new CanData();
   }
 
   async doWork() {
     let data;
     while (data = await this.streamReader.read()) {
       this.processNewData(data.value);
-      postMessage(this.canData);
       await this.delay(200);
     }
   }
@@ -34,7 +30,7 @@ class CanBusSerialReader {
     combined.split("\r\n").forEach((line) => {
       let canLine = CanLine.tryCreateFromSerialLine(line);
       if (canLine !== null) {
-        this.canData.addCanLine(canLine);
+        postMessage(canLine);
       } else {
         this.remainder = line;
       }

@@ -20,16 +20,16 @@ export class CanData {
     this.upsertCanDataGroup(currentValue);
   }
 
-  getKeys(): Array<number> {
-    let keys: number[] = [];
-    for (let index in this.values) {
-      keys.push(this.values[index].key);
-    }
-    return keys.sort((n1,n2) => n1 - n2);
-  }
-
   getCanLinesForKey(key: number): Array<CanLine> {
     return this.getCanDataGroupForKey(key)?.rows;
+  }
+
+  getCurrentState(): Array<CanLine>{
+    let result: CanLine[] = [];
+    this.values.forEach(value => {
+      result.push(value.rows[value.rows.length -1]);
+    });
+    return result;
   }
 
   private getCanDataGroupForKey(key: number): CanDataGroup {

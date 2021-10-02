@@ -1,0 +1,24 @@
+<div class="pane">
+    <p>Snelheid detector</p>
+    <p>Reach speed of: {{MinSpeed}} km/h <button (click)="setMinDataSet()">Hit it</button></p>
+    <p>Reach speed of: {{MaxSpeed}} km/h <button (click)="setMaxDataSet()">Hit it</button></p>
+    <p>
+        <button (click)="tryFindValues()">Do magic</button>
+    </p>
+    <h3>Possible rows:</h3>
+    <p *ngFor="let myItem of PossibleRows">
+        <span>Id {{myItem.id}} </span>
+        <br />
+        <span>
+            <span>{{myItem.originalValueMin.substring(0, myItem.startIndex)}}</span>
+            <span class='red'>{{myItem.originalValueMin.substring(myItem.startIndex, myItem.endIndex)}}</span>
+            <span>{{myItem.originalValueMin.substring(myItem.endIndex)}}</span>
+        </span>
+        <br />
+        <span>
+            <span>{{myItem.originalValueMax.substring(0, myItem.startIndex)}}</span>
+            <span class='red'>{{myItem.originalValueMax.substring(myItem.startIndex, myItem.endIndex)}}</span>
+            <span>{{myItem.originalValueMax.substring(myItem.endIndex)}}</span>
+        </span>
+    </p>
+</div>

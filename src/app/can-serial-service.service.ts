@@ -1,8 +1,9 @@
-import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
 import 'reflect-metadata'
 import { plainToClass } from 'class-transformer';
-import { CanData } from './canlines/shared/candata.model';
+import { CanLine } from './shared/canline.model';
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,21 @@ export class CanSerialService {
 
   constructor() { }
 
+  private dataStream = new Subject<CanLine>();
   private worker?: Worker;
-  OnNewModel = new EventEmitter<CanData>();
 
   async start() {
     await (navigator as any).serial.requestPort();
     if (this.worker === undefined) {
       this.worker = new Worker('./app.worker', { type: 'module' });
-      this.worker.onmessage = ({ data }) => {
-        let mappedData = plainToClass(CanData, data);
-        this.OnNewModel.emit(mappedData);
+      this.worker.onmessage = ( data : MessageEvent<CanLine>) => {
+        this.dataStream.next(plainToClass(CanLine, data.data));
       };
     }
+  }
+
+  getDataObservable () : Observable<CanLine> {
+    return this.dataStream;
   }
 
   async stop() {
