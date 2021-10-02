@@ -17,7 +17,7 @@ export class SpeeddetectorComponent implements OnInit {
 
   MinSpeed : number = 30;
   MaxSpeed : number = 50;
-  PossibleRows : number[] = [];
+  PossibleRows : PossibleValue[] = [];
 
   CanData : CanData = new CanData();
 
@@ -36,23 +36,31 @@ export class SpeeddetectorComponent implements OnInit {
   }
 
   tryFindValues(): void {
-    const tollerance : number = 5;
-    const bits : number = 8;
+    const tollerance : number = 3;
+    const bitsMin : number = 8;
+    const bitsMax : number = 16;
 
     this.PossibleRows = [];
 
     let expectedDif = 100 / this.MaxSpeed * this.MinSpeed;
 
-    this.minDataSet.forEach(minRow => {
-      let maxRow = this.maxDataSet.filter(x => x.id === minRow.id)[0];
-      
-      let maxValues = maxRow.getValues(bits);
-      minRow.getValues(bits).forEach((minVal, index) => {
-        let dif = 100 / maxValues[index] * minVal;
-        if(dif >= expectedDif - tollerance && dif <= expectedDif + tollerance){
-          this.PossibleRows.push(minRow.id);
-        }
-      });      
-    });
+    for(let bits = bitsMin; bits < bitsMax; bits++) {
+      this.minDataSet.forEach(minRow => {
+        let maxRow = this.maxDataSet.filter(x => x.id === minRow.id)[0];
+        
+        let maxValues = maxRow.getValues(bits);
+        minRow.getValues(bits).forEach((minVal, index) => {
+          let dif = 100 / maxValues[index].number * minVal.number;
+          if(dif >= expectedDif - tollerance && dif <= expectedDif + tollerance){
+            this.PossibleRows.push(new PossibleValue(minRow.id, minRow.asBinaryString(), maxRow.asBinaryString(), minVal.startIndex, minVal.endIndex));
+          }
+        });      
+      });
+    }
   }
+}
+
+
+class PossibleValue {
+  constructor(readonly id: number, readonly originalValueMin: string, readonly originalValueMax: string, readonly startIndex: number, readonly endIndex: number) {}
 }

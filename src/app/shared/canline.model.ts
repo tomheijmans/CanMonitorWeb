@@ -23,13 +23,13 @@ export class CanLine {
     }
   }
 
-  public getValues(bits: number) : number[]{
-    let result : number[] = [];
+  public getValues(bits: number) : NumberFromBinary[]{
+    let result : NumberFromBinary[] = [];
     let binaryString = this.asBinaryString();
 
     for(let i = 0; i < binaryString.length - bits; i++){
       let currentValue = binaryString.slice(i, i + bits);
-      result.push(parseInt(currentValue, 2));
+      result.push(new NumberFromBinary(parseInt(currentValue, 2), i, i + bits));
     }
 
     return result;
@@ -45,4 +45,8 @@ export class CanLine {
 
     return result;
   }
+}
+
+class NumberFromBinary {
+  constructor(readonly number: number, readonly startIndex: number, readonly endIndex: number) {}
 }
