@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CanSerialService } from '../can-serial-service.service';
 import { CanData } from '../shared/candata.model';
 import { CanLine } from '../shared/canline.model';
@@ -8,24 +9,32 @@ import { CanLine } from '../shared/canline.model';
   templateUrl: './speeddetector.component.html',
   styleUrls: ['./speeddetector.component.scss']
 })
-export class SpeeddetectorComponent implements OnInit {
+export class SpeeddetectorComponent implements OnInit, OnDestroy {
 
   private minDataSet: Array<CanLine> = [];
   private maxDataSet: Array<CanLine> = [];
+  private subscription?: Subscription;
 
   constructor(private canSerialService : CanSerialService) {   }
 
-  MinSpeed : number = 30;
+  MinSpeed : number = 20;
   MaxSpeed : number = 50;
   PossibleRows : PossibleValue[] = [];
 
   CanData : CanData = new CanData();
 
+  ValueToMononitor: PossibleValue  = new PossibleValue(34, "00000000", "00000000", 28, 40);
+
   ngOnInit(): void {
-    this.canSerialService.getDataObservable().subscribe({
+    this.subscription = this.canSerialService.getDataObservable().subscribe({
       next: (value) => this.CanData.addCanLine(value)
     });
   }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
 
   setMinDataSet(): void {
     this.minDataSet = this.CanData.getCurrentState();
@@ -36,7 +45,7 @@ export class SpeeddetectorComponent implements OnInit {
   }
 
   tryFindValues(): void {
-    const tollerance : number = 3;
+    const tollerance : number = 2;
     const bitsMin : number = 8;
     const bitsMax : number = 16;
 
@@ -61,6 +70,6 @@ export class SpeeddetectorComponent implements OnInit {
 }
 
 
-class PossibleValue {
+export class PossibleValue {
   constructor(readonly id: number, readonly originalValueMin: string, readonly originalValueMax: string, readonly startIndex: number, readonly endIndex: number) {}
 }

@@ -20,5 +20,7 @@
             <span class='red'>{{myItem.originalValueMax.substring(myItem.startIndex, myItem.endIndex)}}</span>
             <span>{{myItem.originalValueMax.substring(myItem.endIndex)}}</span>
         </span>
+        <button (click)="ValueToMononitor = myItem" >Add to chart</button>
     </p>
 </div>
+<app-chartview [valueToMonitor]="ValueToMononitor"></app-chartview>

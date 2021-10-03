@@ -13,10 +13,11 @@ export class CanData {
 
   addCanLine(canLine: CanLine) {
     let currentValue = this.getCanDataGroupForKey(canLine.id) ?? new CanDataGroup(canLine.id);
-    if (currentValue.rows.length > 100) { // Keep only the last 100 rows for now
-      currentValue.rows.shift();
+    
+    currentValue.rows.unshift(canLine);
+    if (currentValue.rows.length > 20) { // Keep only the last rows for now
+      currentValue.rows.pop();
     }
-    currentValue.rows.push(canLine);
     this.upsertCanDataGroup(currentValue);
   }
 

@@ -4,7 +4,8 @@
         The following keys are detected:
     </p>
     <ul>
+        <li><button (click)="CurrentKeyToMonitor = undefined">Monitor all keys</button> </li>
         <li *ngFor="let item of Keys">{{item}} <button (click)="CurrentKeyToMonitor = item">Monitor</button></li>
     </ul>
 </div>
-<app-dataview [keyToMonitor]="CurrentKeyToMonitor"></app-dataview>
+<app-dataview [keyToMonitor]="CurrentKeyToMonitor" [allKeys]="Keys"></app-dataview>

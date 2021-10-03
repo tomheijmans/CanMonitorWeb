@@ -17,7 +17,7 @@ export class CanlinesComponent implements OnInit, OnDestroy {
   constructor(private canSerialService : CanSerialService) { }
 
   CanData : CanData = new CanData();
-  CurrentKeyToMonitor : number = 0;
+  CurrentKeyToMonitor? : number;
   Keys: number[] = [];
 
   ngOnInit(): void {
@@ -36,9 +36,5 @@ export class CanlinesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.keySubscription?.unsubscribe();
-  }
-
-  getDataToMonitor () : CanLine[] {
-    return this.CanData.getCanLinesForKey(this.CurrentKeyToMonitor);
   }
 }

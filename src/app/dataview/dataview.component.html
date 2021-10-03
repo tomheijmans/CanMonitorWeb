@@ -1,7 +1,20 @@
-<p>dataview works!</p>
-<div class="pane">
+<div class="pane" *ngIf="keyToMonitor !== undefined">
     <p>Last data for key {{keyToMonitor}}</p>
     <ul>
-        <li *ngFor="let myItem of getDataToMonitor()">{{myItem.asBinaryString()}}</li>
+        <li>
+            <span *ngFor="let diff of getCurrentDiff()" [ngClass]="{'red':diff.isDiff}">{{diff.value}}</span>
+        </li>
+        <li *ngFor="let myItem of getDataToMonitor() | slice:1">
+            {{myItem.asBinaryString()}}
+        </li>
+    </ul>
+</div>
+<div class="pane" *ngIf="keyToMonitor === undefined">
+    <p>Last data for key </p>
+    <ul>
+        <li *ngFor="let myItem of getDiffsPerKey()">
+            <span>Id: {{myItem.key}} </span>
+            <span *ngFor="let diff of myItem.diff" [ngClass]="{'red':diff.isDiff}">{{diff.value}}</span>
+        </li>
     </ul>
 </div>
